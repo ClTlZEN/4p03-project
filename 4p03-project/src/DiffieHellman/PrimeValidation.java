@@ -29,6 +29,7 @@ public class PrimeValidation {
 		BigInteger a = BigInteger.ZERO;
 		BigInteger d = p.subtract(BigInteger.ONE);
 		while (d.mod(BigInteger.valueOf(2)) == BigInteger.ZERO){
+			
 			d = d.divide(BigInteger.valueOf(2));
 			a.add(BigInteger.ONE);
 		}
