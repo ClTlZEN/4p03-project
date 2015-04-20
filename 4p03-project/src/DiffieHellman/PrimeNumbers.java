@@ -8,11 +8,15 @@ import java.util.Random;
 
 public class PrimeNumbers{
 	
+	private byte[] seed1;
+	
 	private BigInteger p;
 	private BigInteger q;
 	private double l;
 	private BigInteger hash1;
 	private BigInteger hash2;
+	
+	private BigInteger[] V;
 	
 	public PrimeNumbers(double el){
 		l = el;
@@ -25,9 +29,10 @@ public class PrimeNumbers{
 		double n = (L - 1 - b)/160;
 		boolean probPrime = false;
 		
-		//Should be while
+		//Change to while, when Miller-Rabin completed
+		//while (!probPrime){
 		if (!probPrime){
-			byte[] seed1 = randSeed();
+			seed1 = randSeed();
 			hash1 = new SHA1Hash(seed1).getHash();
 			
 			//s
@@ -51,12 +56,16 @@ public class PrimeNumbers{
 			//Now that you have modified U, set it as q
 			BigInteger q = U;
 			
-			
+			//Test q using Miller-Rabin. If true, probPrime = true
+
 		}
-		
-	}
-	public boolean fermatsTestPrime(){
-		return false;
+		int i = 0;
+		int j = 2;
+		while (i < 4096){
+			for (int k=0;i<n;k++){
+				V[k] = new SHA1Hash(seed1).getHash();
+			}
+		}
 		
 	}
 	
