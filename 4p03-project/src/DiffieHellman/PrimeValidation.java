@@ -40,6 +40,8 @@ public class PrimeValidation {
 			BigInteger b;
 			do {
 				b  = new BigInteger(160, rnd);
+				System.out.println("b: "+b);
+				System.out.println("p-2: "+ p.subtract(BigInteger.valueOf(2)));
 			} while (b.compareTo(p.subtract(BigInteger.valueOf(2))) >= 0 // must be smaller than n-2 (0=equal, 1=GT)
 					|| b.compareTo(BigInteger.valueOf(2)) <= 0);	//must be larger than 2 (0=equal -1=LT)
 			

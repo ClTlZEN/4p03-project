@@ -35,13 +35,14 @@ public class PrimeNumbers{
 		
 		//Change to while, when Miller-Rabin completed
 		System.out.println("hry");
-		while (!probPrime){
-		//if (!probPrime){
+		//while (!probPrime){
+		if (!probPrime){
 			seed1 = randSeed();
 			hash1 = new SHA1Hash(seed1).getHash();
 			
 			//s
 			seed1Int = new BigInteger(seed1);
+			System.out.println(seed1Int);
 			
 			//(s+1) mod 2^g
 			BigInteger seed2Int = (seed1Int.add(BigInteger.ONE).mod(BigInteger.valueOf((long) Math.pow(2,g))));
