@@ -29,10 +29,11 @@ public class PrimeValidation {
 		BigInteger a = BigInteger.ZERO;
 		BigInteger d = p.subtract(BigInteger.ONE);
 		while (d.mod(BigInteger.valueOf(2)) == BigInteger.ZERO){
-			
 			d = d.divide(BigInteger.valueOf(2));
 			a.add(BigInteger.ONE);
 		}
+		System.out.println("a: "+a);
+		System.out.println("d: "+d);
 		
 		Random rnd = new Random();
 		
@@ -40,26 +41,34 @@ public class PrimeValidation {
 			BigInteger b;
 			do {
 				b  = new BigInteger(160, rnd);
-				System.out.println("b: "+b);
-				System.out.println("p-2: "+ p.subtract(BigInteger.valueOf(2)));
+				System.out.println("b:	"+b);
+				System.out.println("p-2:	"+ p.subtract(BigInteger.valueOf(2)));
 			} while (b.compareTo(p.subtract(BigInteger.valueOf(2))) >= 0 // must be smaller than n-2 (0=equal, 1=GT)
 					|| b.compareTo(BigInteger.valueOf(2)) <= 0);	//must be larger than 2 (0=equal -1=LT)
-			
+			System.out.println("Good b: "+b);
 			//skip this part if b==1 or b==p-1
 			if (b.compareTo(BigInteger.ONE) != 0 || b.compareTo(p.subtract(BigInteger.ONE)) != 0){
+				
 				for (BigInteger j=a.subtract(BigInteger.ONE) ; j.compareTo(BigInteger.ZERO) <= 0 ; j.subtract(BigInteger.ONE)){
+					//System.out.println(j);
 					b = b.modPow(BigInteger.valueOf(2), p);
 					if (b.compareTo(BigInteger.ONE) == 0){
+						
 						return false; //composite
 					}
 					if (b.compareTo(p.subtract(BigInteger.ONE)) == 0){
+						
 						break;	//break the current loop & continue to next loop iteration up to t
 					}
 				}
+				
 				if (b.compareTo(p.subtract(BigInteger.ONE)) != 0)
+					
 					return false;	//composite if b is never equal to p-1
 			}
+			System.out.println("yup");
 		}
+		
 		return true;
 	}
 	
