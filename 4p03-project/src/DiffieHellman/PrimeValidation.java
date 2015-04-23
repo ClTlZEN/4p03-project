@@ -8,7 +8,7 @@ public class PrimeValidation {
 	boolean prime;	
 	
 	public PrimeValidation(){
-		prime = false;		
+		prime = false;	
 		
 		Random rnd = new Random();
 		
@@ -29,9 +29,6 @@ public class PrimeValidation {
 		System.out.println("a3: "+a3);
 		System.out.println("mine for c: " + probablyPrime(a3, 200));
 		System.out.println("BigInteger's: " + a3.isProbablePrime(3));
-		/*System.out.println("----------------------------");
-		System.out.println("mine for 5: " + probablyPrime(BigInteger.valueOf(5), 1));
-		System.out.println("BigInteger's: " + BigInteger.valueOf(5).isProbablePrime(1));*/
 		
 	}
 	
@@ -42,8 +39,6 @@ public class PrimeValidation {
 	 * Returns false if congruent, true if probably prime.**/
 	public boolean probablyPrime(BigInteger p, int t){
 		
-		//System.out.println("BigInteger's: " + p.isProbablePrime(2));
-		
 		//checks for trivial cases
 		if (p.intValue()==2 || p.intValue()==3){
 			System.out.println("Quitting too early...prime?");
@@ -53,9 +48,6 @@ public class PrimeValidation {
 			System.out.println("Quitting too early...composite?");
 			return false;
 		}
-
-		 
-		
 		
 		Random rnd = new Random();
 		
@@ -65,11 +57,9 @@ public class PrimeValidation {
 			//pick a random integer between 2 and n-2 inclusive
 			do {
 				b  = new BigInteger(p.bitLength(), rnd);
-				//System.out.println("b: "+b);
-				//System.out.println("p-2: "+ p.subtract(BigInteger.valueOf(2)));
 
 			} while (b.compareTo(p.subtract(BigInteger.valueOf(1))) >= 0 // must be smaller than n-2 (0=equal, 1=GT)
-					|| b.compareTo(BigInteger.valueOf(1)) <= 0);	//must be larger than 2 (0=equal -1=LT)
+					|| b.compareTo(BigInteger.valueOf(1)) <= 0);		 //must be larger than 2 (0=equal -1=LT)
 
 			//find a congruence of p-1, in the form 2^a*d
 			BigInteger a = BigInteger.ONE;
@@ -79,6 +69,7 @@ public class PrimeValidation {
 				a.add(BigInteger.ONE);
 			}
 			
+			//checks if b is a witness to p (i.e. p is composite)
 			BigInteger c = b.modPow(d, p);
 			for (int j=0 ; j < a.intValue() ; j ++){
 				BigInteger newC = c.multiply(c).mod(p);
@@ -88,11 +79,10 @@ public class PrimeValidation {
 				}
 				c = newC;
 			}
-			//System.out.println("Probs a prime");
-			//return c.equals(BigInteger.ONE);
 		}
 		System.out.println("Probs a prime");
 		return true;
 	}
+	
 	
 }
