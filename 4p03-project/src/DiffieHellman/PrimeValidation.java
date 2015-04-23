@@ -9,6 +9,20 @@ public class PrimeValidation {
 	
 	public PrimeValidation(){
 		prime = false;		
+		System.out.println("hi");
+		System.out.println("Testing for primes 1, 2, 3");
+		System.out.println("mine: " + probablyPrime(BigInteger.ONE, 1));
+		System.out.println("BigInteger's: " + BigInteger.ONE.isProbablePrime(1));
+		System.out.println("----------------------------");
+		System.out.println("mine for 2: " + probablyPrime(BigInteger.valueOf(2), 1));
+		System.out.println("BigInteger's: " + BigInteger.valueOf(2).isProbablePrime(1));
+		System.out.println("----------------------------");
+		System.out.println("mine for 3: " + probablyPrime(BigInteger.valueOf(3), 1));
+		System.out.println("BigInteger's: " + BigInteger.valueOf(3).isProbablePrime(1));
+		System.out.println("----------------------------");
+		System.out.println("mine for 5: " + probablyPrime(BigInteger.valueOf(5), 1));
+		System.out.println("BigInteger's: " + BigInteger.valueOf(5).isProbablePrime(1));
+		
 	}
 	
 	/**p is the prime that we're testing for validity. t is the margin of accuracy.
@@ -24,6 +38,7 @@ public class PrimeValidation {
 		if (p.mod(BigInteger.valueOf(2)) == BigInteger.ZERO || p.intValue() < 2){
 			return false;
 		}
+
 		 
 		//find a congruence of p-1, in the form 2^a*d
 		BigInteger a = BigInteger.ZERO;
@@ -37,9 +52,11 @@ public class PrimeValidation {
 		
 		for (int i=0 ; i<t ; i++){
 			BigInteger b;
-			
 			do {
-				b  = new BigInteger(160, rnd);
+				b  = new BigInteger(4, rnd);
+				System.out.println("b: "+b);
+				System.out.println("p-2: "+ p.subtract(BigInteger.valueOf(2)));
+
 			} while (b.compareTo(p.subtract(BigInteger.valueOf(2))) >= 0 // must be smaller than n-2 (0=equal, 1=GT)
 					|| b.compareTo(BigInteger.valueOf(2)) <= 0);	//must be larger than 2 (0=equal -1=LT)
 			
