@@ -19,15 +19,15 @@ public class PrimeValidation {
 		System.out.println("hi");
 		System.out.println("Testing for primes a, b, c");
 		System.out.println("a: "+a);
-		System.out.println("mine: " + probablyPrime(a, 50));
+		System.out.println("mine: " + probablyPrime(a, 200));
 		System.out.println("BigInteger's: " + a.isProbablePrime(3));
 		System.out.println("----------------------------");
 		System.out.println("a2: "+a2);
-		System.out.println("mine for b: " + probablyPrime(a2, 50));
+		System.out.println("mine for b: " + probablyPrime(a2, 200));
 		System.out.println("BigInteger's: " + a2.isProbablePrime(3));
 		System.out.println("----------------------------");
 		System.out.println("a3: "+a3);
-		System.out.println("mine for c: " + probablyPrime(a3, 50));
+		System.out.println("mine for c: " + probablyPrime(a3, 200));
 		System.out.println("BigInteger's: " + a3.isProbablePrime(3));
 		/*System.out.println("----------------------------");
 		System.out.println("mine for 5: " + probablyPrime(BigInteger.valueOf(5), 1));
@@ -46,9 +46,11 @@ public class PrimeValidation {
 		
 		//checks for trivial cases
 		if (p.intValue()==2 || p.intValue()==3){
+			System.out.println("Quitting too early...prime?");
 			return true;
 		}
-		if (p.mod(BigInteger.valueOf(2)) == BigInteger.ZERO || p.intValue() < 2){
+		if (p.mod(BigInteger.valueOf(2)) == BigInteger.ZERO || p.intValue() ==1 || p.intValue() ==0){
+			System.out.println("Quitting too early...composite?");
 			return false;
 		}
 
@@ -63,54 +65,33 @@ public class PrimeValidation {
 			//pick a random integer between 2 and n-2 inclusive
 			do {
 				b  = new BigInteger(p.bitLength(), rnd);
-				System.out.println("b: "+b);
-				System.out.println("p-2: "+ p.subtract(BigInteger.valueOf(2)));
+				//System.out.println("b: "+b);
+				//System.out.println("p-2: "+ p.subtract(BigInteger.valueOf(2)));
 
-			} while (b.compareTo(p.subtract(BigInteger.valueOf(2))) >= 0 // must be smaller than n-2 (0=equal, 1=GT)
-					|| b.compareTo(BigInteger.valueOf(2)) <= 0);	//must be larger than 2 (0=equal -1=LT)
-			
-			//System.out.println("Found a b between 2 and p-2: " + (b.compareTo(p.subtract(BigInteger.valueOf(2))) <= 0 // must be smaller than n-2 (0=equal, 1=GT)
-			//		|| b.compareTo(BigInteger.valueOf(2)) >= 0));
-			
-			
+			} while (b.compareTo(p.subtract(BigInteger.valueOf(1))) >= 0 // must be smaller than n-2 (0=equal, 1=GT)
+					|| b.compareTo(BigInteger.valueOf(1)) <= 0);	//must be larger than 2 (0=equal -1=LT)
+
 			//find a congruence of p-1, in the form 2^a*d
-			BigInteger a = BigInteger.ZERO;
+			BigInteger a = BigInteger.ONE;
 			BigInteger d = p.subtract(BigInteger.ONE).divide(BigInteger.valueOf(2));
 			while (d.mod(BigInteger.valueOf(2)) == BigInteger.ZERO){
 				d = d.divide(BigInteger.valueOf(2));
 				a.add(BigInteger.ONE);
 			}
 			
-			
 			BigInteger c = b.modPow(d, p);
 			for (int j=0 ; j < a.intValue() ; j ++){
 				BigInteger newC = c.multiply(c).mod(p);
 				if (newC.equals(BigInteger.ONE) && !c.equals(BigInteger.ONE) && !c.equals(p.subtract(BigInteger.ONE))){
+					System.out.println("Defs a composite");
 					return false; //definitely a composite
 				}
-				if (!c.equals(BigInteger.ONE)) return false;
-				return true;
+				c = newC;
 			}
-/*			
-			//skip this part if b==1 or b==p-1
-			if (b.compareTo(BigInteger.ONE) != 0 || b.compareTo(p.subtract(BigInteger.ONE)) != 0){
-				for (BigInteger j=a.subtract(BigInteger.ONE) ; j.compareTo(BigInteger.ZERO) <= 0 ; j.subtract(BigInteger.ONE)){
-					b = b.modPow(BigInteger.valueOf(2), p);
-					if (b.compareTo(BigInteger.ONE) == 0){
-						System.out.println("composite, returns");
-						return false; //composite
-					}
-					if (b.compareTo(p.subtract(BigInteger.ONE)) == 0){
-						System.out.println("Break and loop again");
-						break;	//break the current loop & continue to next loop iteration up to t
-					}
-				}
-				if (b.compareTo(p.subtract(BigInteger.ONE)) != 0)
-					System.out.println("composite, returns");
-					return false;	//composite if b is never equal to p-1
-			}*/
+			//System.out.println("Probs a prime");
+			//return c.equals(BigInteger.ONE);
 		}
-		System.out.println("prime, end of method");
+		System.out.println("Probs a prime");
 		return true;
 	}
 	
