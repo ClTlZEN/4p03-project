@@ -31,6 +31,9 @@ public class PrimeNumbers{
 		l = el;
 		g = 160;
 	}
+	public BigInteger getP(){
+		return p;
+	}
 	
 	//Using l=2, b=100
 	public void nistGetPrimes() throws NoSuchAlgorithmException{
@@ -59,6 +62,8 @@ public class PrimeNumbers{
 				BigInteger seed2Int = (seed1Int.add(BigInteger.ONE).mod(BigInteger.valueOf(2).pow(g)));
 				byte[] seed2 = seed2Int.toByteArray();
 				hash2 = new SHA1Hash(seed2).getHash();
+				System.out.println("What it should be... "+hash2);
+				System.out.println("TESTING HASH: "+ new SHA1Hasher(seed2).getHash());
 				
 				
 				BigInteger U = hash1.xor(hash2);
@@ -91,9 +96,9 @@ public class PrimeNumbers{
 				//Test q using Miller-Rabin. If true, probPrime = true
 				PrimeValidation pv1 = new PrimeValidation();
 				int t;
-				if (q.isProbablePrime(10)){
-				//if (pv1.probablyPrime(q, 18)){
-					System.out.println("Probable prime: "+q);
+				//if (q.isProbablePrime(10)){
+				if (pv1.probablyPrime(q, 18)){
+					//System.out.println("Probable prime: "+q);
 					qProbPrime = true;
 				}
 				//else{System.out.println(q);};
@@ -148,24 +153,32 @@ public class PrimeNumbers{
 				if (p.compareTo(BigInteger.valueOf(2).pow(L-1)) >= 0){
 					PrimeValidation pv2 = new PrimeValidation();
 					int t = 5;
-					if (p.isProbablePrime(10)){
-					//if (pv2.probablyPrime(p, t)){
+					//if (p.isProbablePrime(10)){
+					if (pv2.probablyPrime(p, t)){
 						boolean asd = p.compareTo(BigInteger.valueOf(2).pow(L-1))>0;
 						boolean asd1 = p.compareTo(BigInteger.valueOf(2).pow(L))<0;
 						w.println("p gr8r than 2^(L-1):" +asd);
 						w.println("p less than 2^(L):" +asd1);
 						w.println("p: "+p);
 						
-						w.println("p in binary: "+p.toString(2));
+						w.println("p in binary: ");
+						for (byte bP : p.toByteArray()) {
+						    w.print(Integer.toBinaryString(b & 255 | 256).substring(1));
+						}
+						w.println();
 						byte[] asdf = p.toByteArray();
-						int sadfasdf = asdf.length*8;
+						//int sadfasdf = asdf.length*8;
 						w.println("p bit count: "+p.bitCount());
 						w.println("p bit length: "+p.bitLength());
 						
 						w.println("q: "+q);
-						w.println("q in binary: "+q.toString(2));
+						w.println("q in binary: ");
+						for (byte bP : q.toByteArray()) {
+						    w.print(Integer.toBinaryString(b & 255 | 256).substring(1));
+						}
+						w.println();
 						byte[] asdf1 = q.toByteArray();
-						int sadfasdf1 = asdf1.length*8;
+						//int sadfasdf1 = asdf1.length*8;
 						w.println("q bit count: "+q.bitCount());
 						w.println("q bit length: "+q.bitLength());
 						
