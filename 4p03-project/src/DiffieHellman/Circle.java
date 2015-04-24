@@ -3,7 +3,7 @@ package DiffieHellman;
 import java.math.BigInteger;
 
 public class Circle {
-
+ 
 	private int numCommunicators;
 	private Communicator [] aliceAndFriends;
 	private BigInteger [] sharedKeys;

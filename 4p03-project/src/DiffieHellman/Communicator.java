@@ -15,7 +15,7 @@ public class Communicator {
 	private int g;
 	public SecureRandom rand;
 //	public int numCommunicators;	//temporary
-	
+	 
 	private BigInteger [] keys;		//will hold public computed keys g^() sent from other communicators
 	
 	public Communicator(int id){

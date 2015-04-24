@@ -20,7 +20,7 @@ public class KeyExchange {
 		System.out.println("Bob's received keys: ");
 		Bob.printKeys();*/
 		
-		Circle peeps = new Circle(4);
+		Circle peeps = new Circle(4); 
 		
 		
 	}
