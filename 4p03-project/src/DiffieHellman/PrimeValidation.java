@@ -16,20 +16,21 @@ public class PrimeValidation {
 		BigInteger a2 = new BigInteger(160, 2, rnd);
 		BigInteger a3 = new BigInteger(160, 2, rnd);
 		
-		System.out.println("hi");
+		System.out.println();
+		System.out.println("Demonstration of the validator with different prime numbers: ");
 		System.out.println("Testing for primes a, b, c");
 		System.out.println("a: "+a);
-		System.out.println("mine: " + probablyPrime(a, 200));
+		System.out.println("Our result for a: " + probablyPrime(a, 200));
 		System.out.println("BigInteger's: " + a.isProbablePrime(3));
 		System.out.println("----------------------------");
 		System.out.println("a2: "+a2);
-		System.out.println("mine for b: " + probablyPrime(a2, 200));
+		System.out.println("Our result for b: " + probablyPrime(a2, 200));
 		System.out.println("BigInteger's: " + a2.isProbablePrime(3));
 		System.out.println("----------------------------");
 		System.out.println("a3: "+a3);
-		System.out.println("mine for c: " + probablyPrime(a3, 200));
+		System.out.println("Our result for c: " + probablyPrime(a3, 200));
 		System.out.println("BigInteger's: " + a3.isProbablePrime(3));
-		
+		System.out.println();
 	}
 	
 	/**p is the prime that we're testing for validity. t is the margin of accuracy.

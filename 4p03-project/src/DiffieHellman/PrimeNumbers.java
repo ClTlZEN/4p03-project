@@ -26,6 +26,8 @@ public class PrimeNumbers{
 	
 	private BigInteger[] V;
 	
+
+	
 	public PrimeNumbers(int el) throws FileNotFoundException, UnsupportedEncodingException{
 		w = new PrintWriter("test.txt","UTF-8");
 		l = el;

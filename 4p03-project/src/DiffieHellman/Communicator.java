@@ -38,7 +38,7 @@ public class Communicator {
 	/*the personal private key should be large and randomly generated for security*/
 	public void pickPrivateKey(){		
 		//many sources claim that it is sufficient for a to be between 0 and 100
-		personalKey = rand.nextInt(10) + 3;
+		personalKey = rand.nextInt(50) + 3;
 		System.out.println("Private integer key " +personalKey);
 	}
 	
