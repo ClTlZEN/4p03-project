@@ -7,11 +7,13 @@ public class Circle {
 	private int numCommunicators;
 	private Communicator [] aliceAndFriends;
 	private BigInteger [] sharedKeys;
+	private boolean shared;
 	
 	public Circle(int n){
 		numCommunicators = n;
 		aliceAndFriends = new Communicator[numCommunicators];
 		sharedKeys = new BigInteger[numCommunicators];
+		shared = false;
 		
 		addCommunicators();
 		System.out.println("communicators: " + aliceAndFriends[0].getCID() + " " + aliceAndFriends[1].getCID() + " " + aliceAndFriends[2].getCID() + " " + aliceAndFriends[3].getCID());
@@ -41,24 +43,44 @@ public class Circle {
 	}
 	
 	public void tradeKeys(){
-		for (int i=0 ; i<numCommunicators-1 ; i++){
+		BigInteger temp;
+		
+		for (int i=0 ; i<numCommunicators ; i++){
+			temp = sharedKeys[0];
 			for (int j=0 ; j<numCommunicators ; j++){
-				if (j+1 < numCommunicators)
-					sharedKeys[j] = aliceAndFriends[j].calculateSharedKey(sharedKeys[j+1]);
-				else
-					sharedKeys[j] = aliceAndFriends[j].calculateSharedKey(sharedKeys[1]);
+				if (numCommunicators-i-1 == 1)
+					shared=true;
+				if (shared){
+					System.out.println("calculating secret key**************");
+					if (j+1 > numCommunicators-1) {
+						aliceAndFriends[j].calculateSecretKey(temp);
+						System.out.println("calculating for CAROL w: " + sharedKeys[0]);
+					}
+					else {
+						aliceAndFriends[j].calculateSecretKey(sharedKeys[j+1]);
+						System.out.println("calculating for ALICE/BOB w: " + sharedKeys[j+1]);
+					}
+				}
+				else {
+					System.out.println("**************calculating public key");
+					if (j+1 < numCommunicators){
+						sharedKeys[j] = aliceAndFriends[j].calculateSharedKey(sharedKeys[j+1]);
+						System.out.println("calculating for ALICE/BOB w: " + sharedKeys[j+1]);
+					}
+						
+					else{
+						sharedKeys[j] = aliceAndFriends[j].calculateSharedKey(temp);
+						System.out.println("calculating for CAROL w: " + sharedKeys[0]);
+					}
+						
+				}	
+				
 				System.out.println("ok");
 			}
-			System.out.println("Traded: " + sharedKeys[0] + " ----- " + sharedKeys[1] + "----- "+ sharedKeys[2] + "----- "+ sharedKeys[3] );
+			if (shared) return;
+			System.out.println("Traded: " + sharedKeys[0].bitLength() + " ----- " + sharedKeys[1].bitLength() + "----- "+ sharedKeys[2].bitLength() + "----- "+ sharedKeys[3].bitLength() );
 		}
 	}
-	
-	/*Is called to add a specific communicator involved in the message transmission*/
-/*	public void addCommunicator(Communicator c){
-		if (c.getCID() > numCommunicators) 
-			System.out.println("Sorry, you already have all your communicators");
-		else aliceAndFriends[c.getCID()] = c;
-	}*/
 	
 	BigInteger[] getpublicKeys(){
 		return sharedKeys;
