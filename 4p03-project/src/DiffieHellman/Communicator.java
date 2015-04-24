@@ -59,7 +59,7 @@ public class Communicator {
 		}*/
 		
 		//many sources claim that it is sufficient for a to be between 0 and 100
-		personalKey = rand.nextInt(100);
+		personalKey = rand.nextInt(30)+3;
 		System.out.println("Private integer key " +personalKey);
 	}
 	

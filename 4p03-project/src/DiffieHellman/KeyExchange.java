@@ -24,7 +24,7 @@ public class KeyExchange {
 		Circle peeps = new Circle(4); 
 		
 		
-		System.out.println(primes.getP());
+		//System.out.println(primes.getP());
 		
 		//SHA1Hash hash = new SHA1Hash(160);
 		
