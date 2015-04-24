@@ -21,6 +21,7 @@ public class CommProtocol {
                                  "Is there an owl in here?",
                                  "Is there an echo in here?" };
  
+    
     public String processInput(String theInput) {
         String theOutput = null;
  
@@ -60,5 +61,14 @@ public class CommProtocol {
             }
         }
         return theOutput;
+    }
+
+    public void twoUsers(String in){
+    	if (state == 0){
+    		
+    	}
+    }
+    public void multiUsers(String in){
+    	
     }
 }

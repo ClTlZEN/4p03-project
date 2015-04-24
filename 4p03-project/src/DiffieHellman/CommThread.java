@@ -4,7 +4,7 @@ import java.net.*;
 import java.io.*;
 
 public class CommThread extends Thread {
-    private Socket socket = null;
+    private Socket socket;
 
     public CommThread(Socket socket) {
         //super("KKMultiServerThread");
@@ -15,10 +15,9 @@ public class CommThread extends Thread {
 
         try (
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(
-                new InputStreamReader(
-                    socket.getInputStream()));
-        ) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        	) 
+        	{
             String inputLine, outputLine;
             CommProtocol kkp = new CommProtocol();
             outputLine = kkp.processInput(null);
@@ -34,7 +33,8 @@ public class CommThread extends Thread {
                 }*/
             }
             socket.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
