@@ -38,7 +38,7 @@ public class Communicator {
 	/*the personal private key should be large and randomly generated for security*/
 	public void pickPrivateKey(){		
 		//many sources claim that it is sufficient for a to be between 0 and 100
-		personalKey = rand.nextInt(30) + 3;
+		personalKey = rand.nextInt(10) + 3;
 		System.out.println("Private integer key " +personalKey);
 	}
 	
@@ -50,13 +50,13 @@ public class Communicator {
 	
 	BigInteger calculateSharedKey(BigInteger key){
 		BigInteger result = key.pow(personalKey);
-		System.out.println("the PUBLIC shared key calculated: " + result);
+		System.out.println("the PUBLIC shared key calculated with " + key + "^" + personalKey + " is " + result);
 		return result;
 	}
 	
-	public void calculateSecretKey(BigInteger key){
-		secretKey = key.pow(personalKey);
-		System.out.println(cID + "'s SECRET key: " + secretKey);
+	public void calculateSecretKey(BigInteger baseKey){
+		secretKey = baseKey.pow(personalKey);
+		System.out.println("Communicator " + cID + "'s SECRET key: " + secretKey);
 ;	}
 	
 	
